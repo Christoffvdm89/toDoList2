@@ -11,6 +11,7 @@ if(isset($_POST['submit'])){
 $task = $_POST['task']; 
 $sql = "INSERT INTO tasks (task) VALUES('$task')";
 
+
 if (mysqli_query($con, $sql)){
   echo "Record inserted successfully";
 }else{
@@ -19,7 +20,7 @@ if (mysqli_query($con, $sql)){
 header("location: index.php");
 }
 
-
+$tasks = mysqli_query($con,"SELECT * FROM tasks");
 
 ?>
 
@@ -55,13 +56,15 @@ header("location: index.php");
 
        
        <tbody>
-         <tr>
-           <td>1</td>
-           <td>This is the first task placeholder</td>
+       <?php while ($row = mysqli_fetch_array($tasks)) {?>
+        <tr>
+           <td><?php echo $row['id']?></td>
+           <td><?php echo $row['task']?></td>
            <td>
              <a href="#">x</a>
            </td>
          </tr>
+       <?php } ?>
        </tbody>
      </table>
        
