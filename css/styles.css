@@ -2,12 +2,12 @@ body{
     
     font-family: 'Lato', sans-serif; 
     margin: 2%;
-    background:url('') repeat;
+    background:url('../images/city2.jpg') repeat;
     color:#123638;
     /* #5C5A61; */
 }
 
-h1{
+#h1{
     margin-left: 35%;
 }
 
@@ -25,15 +25,14 @@ button{
 
 #list{
     position: ;
-  width: 50%;
+  width: 25%;
   height: 10%;
  background: var(--container-bg-color);
- border: 2px solid var(--left-bg-color); 
- border-color: black;
+  border: 2px solid var(--left-bg-color);
   padding: 2%;
   margin-top: 10px;
   margin-left: 2px;
-  background: rgba(103,105,107,0.5);
+  background: rgba(103,105,107,0.9);
   color:black;
     
 }
