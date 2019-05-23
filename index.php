@@ -2,15 +2,14 @@
 
 $con = mysqli_connect('localhost','root','','todo');
 // check connection
-if (!$con)
-  {
+if (!$con){
   die ("Connection error: " . mysqli_connect_error());
   }
 
+//add task
 if(isset($_POST['submit'])){  
 $task = $_POST['task']; 
 $sql = "INSERT INTO tasks (task) VALUES('$task')";
-
 
 if (mysqli_query($con, $sql)){
   echo "Record inserted successfully";
@@ -20,7 +19,25 @@ if (mysqli_query($con, $sql)){
 header("location: index.php");
 }
 
-$tasks = mysqli_query($con,"SELECT * FROM tasks");
+//delete task
+if(isset($_GET['del_task'])){  
+  $id = $_GET['del_task']; 
+  $sql2 = "DELETE FROM tasks WHERE id=$id";
+  
+if (mysqli_query($con, $sql2)){
+  echo "Record deleted successfully";
+}else{
+  echo "ERROR: Could not able to execute $sql2. " .
+  mysqli_error($link);
+}
+header("location: index.php");
+}
+
+
+
+// select tasks from database
+$sql3= "SELECT * FROM tasks";
+$tasks = mysqli_query($con,$sql3);
 
 ?>
 
@@ -48,7 +65,7 @@ $tasks = mysqli_query($con,"SELECT * FROM tasks");
      <table>
        <thead>
          <tr>
-          <th>N</th>
+          <th>Id</th>
           <th>Task</th>
           <th>Action</th>
          </tr>
@@ -61,7 +78,7 @@ $tasks = mysqli_query($con,"SELECT * FROM tasks");
            <td><?php echo $row['id']?></td>
            <td><?php echo $row['task']?></td>
            <td>
-             <a href="#">x</a>
+           <a href="index.php?del_task= <?php echo $row['id'];?>">x</a>
            </td>
          </tr>
        <?php } ?>
