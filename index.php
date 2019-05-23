@@ -6,7 +6,7 @@ if (!$con){
   die ("Connection error: " . mysqli_connect_error());
   }
 
-//add task
+//add task,date
 if(isset($_POST['submit'])){  
 $task = $_POST['task']; 
 $date = $_POST['date']; 
@@ -20,16 +20,6 @@ if (mysqli_query($con, $sql)){
 header("location: index.php");
 }
 
-//add date
-if(isset($_POST['submit'])){ 
-
-if (mysqli_query($con, $sql4)){
-  echo "Record inserted successfully";
-}else{
-  echo "ERROR: Could not able to execute $sql4. " . mysqli_error($link);
-}
-header("location: index.php");
-}
 
 //delete task
 if(isset($_GET['del_task'])){  
@@ -45,8 +35,21 @@ if (mysqli_query($con, $sql2)){
 header("location: index.php");
 }
 
-//update task
-
+// update task
+if(isset($_POST['update'])){  
+  $id_n = $_POST['id_update']; 
+  $task_n = $_POST['task_update']; 
+  $date_n = $_POST['date_update']; 
+  $sql4 = "UPDATE tasks SET task='$task_n', date='$date_n'   WHERE id=$id_n";
+  
+if (mysqli_query($con, $sql4)){
+  echo "Record deleted successfully";
+}else{
+  echo "ERROR: Could not able to execute $sql4. " .
+  mysqli_error($link);
+}
+header("location: index.php");
+}
 
 
 // select tasks from database
@@ -76,7 +79,14 @@ $tasks = mysqli_query($con,$sql3);
          Due date<label for="date"><input type="date" name="date"></label>
          <br>
          <button type="submit" name="submit">Add Task</button>
-         
+         <br>
+         Update Id<label for="id_update"><input type="text" name="id_update"></label>
+         <br>
+         Task<label for="task_update"><input type="text" name="task_update" placeholder="task"></label>
+         <br>
+         Due date<label for="date_update"><input type="date" name="date_update"></label>
+         <br>
+         <button type="submit" name="update">Update Task</button>
 
      </form>
 
