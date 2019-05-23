@@ -9,12 +9,24 @@ if (!$con){
 //add task
 if(isset($_POST['submit'])){  
 $task = $_POST['task']; 
-$sql = "INSERT INTO tasks (task) VALUES('$task')";
+$date = $_POST['date']; 
+$sql = "INSERT INTO tasks (task,date) VALUES('$task','$date')";
 
 if (mysqli_query($con, $sql)){
   echo "Record inserted successfully";
 }else{
   echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+}
+header("location: index.php");
+}
+
+//add date
+if(isset($_POST['submit'])){ 
+
+if (mysqli_query($con, $sql4)){
+  echo "Record inserted successfully";
+}else{
+  echo "ERROR: Could not able to execute $sql4. " . mysqli_error($link);
 }
 header("location: index.php");
 }
@@ -32,6 +44,8 @@ if (mysqli_query($con, $sql2)){
 }
 header("location: index.php");
 }
+
+//update task
 
 
 
@@ -57,8 +71,12 @@ $tasks = mysqli_query($con,$sql3);
     </div>
 
     <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post" id="form">  
-         <input type="text" name="task">
+         Task<label for="task"><input type="text" name="task" placeholder="task"></label>
+         <br>
+         Due date<label for="date"><input type="date" name="date"></label>
+         <br>
          <button type="submit" name="submit">Add Task</button>
+         
 
      </form>
 
@@ -67,6 +85,7 @@ $tasks = mysqli_query($con,$sql3);
          <tr>
           <th>Id</th>
           <th>Task</th>
+          <th>Date</th>
           <th>Action</th>
          </tr>
        </thead>
@@ -77,6 +96,7 @@ $tasks = mysqli_query($con,$sql3);
         <tr>
            <td><?php echo $row['id']?></td>
            <td><?php echo $row['task']?></td>
+           <td><?php echo $row['date']?></td>
            <td>
            <a href="index.php?del_task= <?php echo $row['id'];?>">x</a>
            </td>
@@ -85,6 +105,7 @@ $tasks = mysqli_query($con,$sql3);
        </tbody>
      </table>
        
+
 
 </body>
 </html>
