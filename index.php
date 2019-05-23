@@ -53,7 +53,7 @@ header("location: index.php");
 
 
 // select tasks from database
-$sql3= "SELECT * FROM tasks";
+$sql3= "SELECT * FROM tasks ORDER BY task";
 $tasks = mysqli_query($con,$sql3);
 
 ?>
