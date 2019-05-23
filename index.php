@@ -93,7 +93,8 @@ $tasks = mysqli_query($con,$sql3);
      <table>
        <thead>
          <tr>
-          <th>Id</th>
+          <th>No</th>
+          <th>ID</th>
           <th>Task</th>
           <th>Date</th>
           <th>Action</th>
@@ -102,8 +103,9 @@ $tasks = mysqli_query($con,$sql3);
 
        
        <tbody>
-       <?php while ($row = mysqli_fetch_array($tasks)) {?>
+       <?php $i=1; while ($row = mysqli_fetch_array($tasks)) {?>
         <tr>
+           <td><?php echo $i;?></td>
            <td><?php echo $row['id']?></td>
            <td><?php echo $row['task']?></td>
            <td><?php echo $row['date']?></td>
@@ -111,7 +113,7 @@ $tasks = mysqli_query($con,$sql3);
            <a href="index.php?del_task= <?php echo $row['id'];?>">x</a>
            </td>
          </tr>
-       <?php } ?>
+       <?php $i++; } ?>
        </tbody>
      </table>
        
