@@ -1,4 +1,12 @@
 <?php
+// Initialize the session
+session_start();
+ 
+// Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: login.php");
+    exit;
+}
 
 $con = mysqli_connect('localhost','root','','todo');
 // check connection
@@ -57,18 +65,26 @@ $sql3= "SELECT * FROM tasks ORDER BY task";
 $tasks = mysqli_query($con,$sql3);
 
 ?>
-
-
+ 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Todo list application with PHP and MySQL</title>
-    <link rel="stylesheet" href="">
+    <title>Welcome</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+    <style type="text/css">
+        body{ font: 14px sans-serif; text-align: center; }
+    </style>
 </head>
 <body>
+    <div class="page-header">
+        <h1>Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
+    </div>
+    <p>
+        <a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
+        <a href="logout.php" class="btn btn-danger">Sign Out of Your Account</a>
+    </p>
+
     <div class="heading">
     <h1>Todo list application with PHP and MySQL</h1>
     </div>
@@ -116,8 +132,6 @@ $tasks = mysqli_query($con,$sql3);
        <?php $i++; } ?>
        </tbody>
      </table>
-       
-
-
+          
 </body>
 </html>
