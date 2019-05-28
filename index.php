@@ -8,17 +8,22 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     exit;
 }
 
-$con = mysqli_connect('localhost','root','','todo');
+$con = mysqli_connect('localhost','root','','logintodo');
 // check connection
 if (!$con){
   die ("Connection error: " . mysqli_connect_error());
   }
 
+  $userid = $_SESSION["userid"];
+  $username = $_SESSION["username"];
+  mysqli_query($con, "SELECT * FROM tasks WHERE userid = $userid");
+
 //add task,date
 if(isset($_POST['submit'])){  
 $task = $_POST['task']; 
 $date = $_POST['date']; 
-$sql = "INSERT INTO tasks (task,date) VALUES('$task','$date')";
+$userid= $_SESSION["userid"];
+$sql = "INSERT INTO tasks (task,date,userid) VALUES('$task','$date','$userid')";
 
 if (mysqli_query($con, $sql)){
   echo "Record inserted successfully";
@@ -61,7 +66,7 @@ header("location: index.php");
 
 
 // select tasks from database
-$sql3= "SELECT * FROM tasks ORDER BY task";
+$sql3= "SELECT * FROM tasks WHERE userid=$userid ORDER BY task";
 $tasks = mysqli_query($con,$sql3);
 
 ?>
@@ -72,6 +77,7 @@ $tasks = mysqli_query($con,$sql3);
     <meta charset="UTF-8">
     <title>Welcome</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+    <link rel="stylesheet" href="main.css">
     <style type="text/css">
         body{ font: 14px sans-serif; text-align: center; }
     </style>
@@ -113,6 +119,7 @@ $tasks = mysqli_query($con,$sql3);
           <th>ID</th>
           <th>Task</th>
           <th>Date</th>
+          <th>Userid</th>
           <th>Action</th>
          </tr>
        </thead>
@@ -125,6 +132,7 @@ $tasks = mysqli_query($con,$sql3);
            <td><?php echo $row['id']?></td>
            <td><?php echo $row['task']?></td>
            <td><?php echo $row['date']?></td>
+           <td><?php echo $row['userid']?></td>
            <td>
            <a href="index.php?del_task= <?php echo $row['id'];?>">x</a>
            </td>
