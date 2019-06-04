@@ -76,26 +76,25 @@ $tasks = mysqli_query($con,$sql3);
 <head>
     <meta charset="UTF-8">
     <title>Welcome</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="css/style.css">
     <style type="text/css">
         body{ font: 14px sans-serif; text-align: center; }
     </style>
 </head>
 <body>
     <div class="page-header">
-        <h1>Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
+        <h1>Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to your city.</h1>
     </div>
     <p>
-        <a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
-        <a href="logout.php" class="btn btn-danger">Sign Out of Your Account</a>
+        <a href="reset-password.php" class="reset">Reset Your Password</a>
+        <a href="logout.php" class="out">Sign Out of Your Account</a>
     </p>
 
-    <div class="heading">
-    <h1>Todo list application with PHP and MySQL</h1>
-    </div>
-
-    <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post" id="form">  
+   
+    
+    <div id='form'>
+    <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post" >  
          Task<label for="task"><input type="text" name="task" placeholder="task"></label>
          <br>
          Due date<label for="date"><input type="date" name="date"></label>
@@ -111,6 +110,7 @@ $tasks = mysqli_query($con,$sql3);
          <button type="submit" name="update">Update Task</button>
 
      </form>
+     </div>
 
      <table>
        <thead>
@@ -140,6 +140,6 @@ $tasks = mysqli_query($con,$sql3);
        <?php $i++; } ?>
        </tbody>
      </table>
-          
+     </div>       
 </body>
 </html>
